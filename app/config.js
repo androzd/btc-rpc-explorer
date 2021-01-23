@@ -129,10 +129,11 @@ module.exports = {
 	],
 
 	donationAddresses:{
-		coins:["BTC", "LTC"],
+		coins:["BTC", "LTC", "DOGE"],
 		sites:{"BTC":"https://btc.chaintools.io", "LTC":"https://ltc.chaintools.io"},
 
 		"BTC":{address:"3NPGpNyLLmVKCEcuipBs7G4KpQJoJXjDGe"},
+		"DOGE":{address:"123"},
 		"LTC":{address:"ME4pXiXuWfEi1ANBDo9irUJVcZBhsTx14i"}
 	},
 
