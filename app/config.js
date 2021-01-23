@@ -26,6 +26,9 @@ module.exports = {
 	demoSite: !!process.env.BTCEXP_DEMO,
 	coin: currentCoin,
 
+	modules: {
+		chaintxstats_enabled: !process.env.BTCEXP_BITCOIND_TXSTATS_DISABLED
+	},
 	rpcBlacklist:
 	  process.env.BTCEXP_RPC_ALLOWALL  ? []
 	: process.env.BTCEXP_RPC_BLACKLIST ? process.env.BTCEXP_RPC_BLACKLIST.split(',').filter(Boolean)

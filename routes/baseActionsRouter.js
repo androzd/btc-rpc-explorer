@@ -54,24 +54,27 @@ router.get("/", function(req, res) {
 			}
 		}
 
-		var periods = {
-			"24 hours": 144,
-			"1 week": 144 * 7,
-			"1 month": 144 * 30,
-			"1 year": 144 * 365
-		}
 		res.locals.chainTxStatsLabels = []
-		for(var periodName in periods){
-			var nblocks = periods[periodName];
-			if (nblocks >= getblockchaininfo.blocks) {
-				break
+		if (config.modules.chaintxstats_enabled)
+		{
+			var periods = {
+				"24 hours": 144,
+				"1 week": 144 * 7,
+				"1 month": 144 * 30,
+				"1 year": 144 * 365
 			}
-			res.locals.chainTxStatsLabels.push(periodName)
-			promises.push(coreApi.getChainTxStats(nblocks));
-		}
-		res.locals.chainTxStatsLabels.push("All time")
+			for (var periodName in periods) {
+				var nblocks = periods[periodName];
+				if (nblocks >= getblockchaininfo.blocks) {
+					break
+				}
+				res.locals.chainTxStatsLabels.push(periodName)
+				promises.push(coreApi.getChainTxStats(nblocks));
+			}
+			res.locals.chainTxStatsLabels.push("All time")
 
-		promises.push(coreApi.getChainTxStats(getblockchaininfo.blocks - 1));
+			promises.push(coreApi.getChainTxStats(getblockchaininfo.blocks - 1));
+		}
 
 		coreApi.getBlocksByHeight(blockHeights).then(function(latestBlocks) {
 			res.locals.latestBlocks = latestBlocks;
